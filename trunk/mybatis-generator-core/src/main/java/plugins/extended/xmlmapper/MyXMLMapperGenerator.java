@@ -33,7 +33,6 @@ public class MyXMLMapperGenerator extends XMLMapperGenerator {
         addSelectByPrimaryKeyElement(answer);
         addDeleteByPrimaryKeyElement(answer);
         addInsertSelectiveElement(answer);
-        addInsertBatchSelectiveElement(answer);
         addUpdateByPrimaryKeySelectiveElement(answer);
         addUpdateByPrimaryKeyWithBLOBsElement(answer);
         addUpdateByPrimaryKeyWithoutBLOBsElement(answer);
