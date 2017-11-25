@@ -754,6 +754,7 @@ public abstract class IntrospectedTable {
         setUpdateByPrimaryKeyStatementId("updateByPrimaryKey"); //$NON-NLS-1$
         setUpdateByPrimaryKeySelectiveStatementId("updateByPrimaryKeySelective"); //$NON-NLS-1$
         setUpdateByPrimaryKeyWithBLOBsStatementId("updateByPrimaryKeyWithBLOBs"); //$NON-NLS-1$
+        setSelectListByConditionStatementId("selectListByCondition");//自定义查询
         setBaseResultMapId("BaseResultMap"); //$NON-NLS-1$
         setResultMapWithBLOBsId("ResultMapWithBLOBs"); //$NON-NLS-1$
         setExampleWhereClauseId("Example_Where_Clause"); //$NON-NLS-1$
