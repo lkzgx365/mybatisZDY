@@ -35,12 +35,12 @@ public class MyXMLMapperGenerator extends XMLMapperGenerator {
         addInsertSelectiveElement(answer);
         addUpdateByPrimaryKeySelectiveElement(answer);
         addUpdateByPrimaryKeyWithBLOBsElement(answer);
-        addUpdateByPrimaryKeyWithoutBLOBsElement(answer);
-        addSimpleMySelectElement(answer);
+        addSimpleMySelectListByConditionElementGeneratorElement(answer);
+
         return answer;
     }
 
-    protected void addSimpleMySelectElement(XmlElement parentElement){
+    protected void addSimpleMySelectListByConditionElementGeneratorElement(XmlElement parentElement){
         if (introspectedTable.getRules()
                 .generateSelectByPrimaryKey()) {
             AbstractXmlElementGenerator elementGenerator = new MySelectListByConditionElementGenerator();
