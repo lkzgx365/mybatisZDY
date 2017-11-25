@@ -36,13 +36,13 @@ public class MyXMLMapperGenerator extends XMLMapperGenerator {
         addInsertSelectiveElement(answer);
         addUpdateByPrimaryKeySelectiveElement(answer);
         addUpdateByPrimaryKeyWithBLOBsElement(answer);
-        addSimpleMySelectListByConditionElementGeneratorElement(answer);
-        addSimpleMySelectCountByConditionElementGeneratorElement(answer);
+        addMySelectListByConditionElementGeneratorElement(answer);
+        addMySelectCountByConditionElementGeneratorElement(answer);
 
         return answer;
     }
 
-    protected void addSimpleMySelectListByConditionElementGeneratorElement(XmlElement parentElement){
+    protected void addMySelectListByConditionElementGeneratorElement(XmlElement parentElement){
         if (introspectedTable.getRules()
                 .generateSelectByPrimaryKey()) {
             AbstractXmlElementGenerator elementGenerator = new MySelectListByConditionElementGenerator();
@@ -50,11 +50,13 @@ public class MyXMLMapperGenerator extends XMLMapperGenerator {
         }
     }
 
-    protected void addSimpleMySelectCountByConditionElementGeneratorElement(XmlElement parentElement){
+    protected void addMySelectCountByConditionElementGeneratorElement(XmlElement parentElement){
         if (introspectedTable.getRules()
                 .generateSelectByPrimaryKey()) {
             AbstractXmlElementGenerator elementGenerator = new MySelectCountByConditionElementGenerator();
             initializeAndExecuteGenerator(elementGenerator, parentElement);
         }
     }
+
+
 }
