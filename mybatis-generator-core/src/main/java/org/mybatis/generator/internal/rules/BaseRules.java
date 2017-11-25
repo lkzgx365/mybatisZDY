@@ -304,6 +304,15 @@ public abstract class BaseRules implements Rules {
                 && tableConfiguration.isUpdateByExampleStatementEnabled();
     }
 
+    public boolean generateMYEXTENDEDUpdateByExampleWhereClause() {
+        if (isModelOnly) {
+            return false;
+        }
+
+        return introspectedTable.getTargetRuntime() == TargetRuntime.MYEXTENDED
+                && tableConfiguration.isUpdateByExampleStatementEnabled();
+    }
+
     /**
      * Implements the rule for generating the select by primary key SQL Map
      * element and DAO method. If the table has a primary key as well as other
