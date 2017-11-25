@@ -147,6 +147,9 @@ public interface Rules {
      */
     boolean generateMyBatis3UpdateByExampleWhereClause();
 
+
+    boolean generateMYEXTENDEDUpdateByExampleWhereClause();
+
     /**
      * Implements the rule for generating the SQL base column list element.
      * Generate the element if any of the select methods are enabled.

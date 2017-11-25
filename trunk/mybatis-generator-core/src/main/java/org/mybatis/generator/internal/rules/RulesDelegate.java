@@ -132,6 +132,10 @@ public class RulesDelegate implements Rules {
         return rules.generateMyBatis3UpdateByExampleWhereClause();
     }
 
+    public boolean generateMYEXTENDEDUpdateByExampleWhereClause(){
+        return rules.generateMYEXTENDEDUpdateByExampleWhereClause();
+    }
+
     public boolean generateUpdateByExampleSelective() {
         return rules.generateUpdateByExampleSelective();
     }
