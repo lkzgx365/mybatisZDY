@@ -7,14 +7,10 @@ import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.codegen.mybatis3.ListUtilities;
 import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
 import org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.AbstractXmlElementGenerator;
-import org.mybatis.generator.config.PropertyRegistry;
-import org.mybatis.generator.internal.util.StringUtility;
 
-import java.util.Iterator;
+public class MySelectCountByConditionElementGenerator extends AbstractXmlElementGenerator {
 
-public class MySelectListByConditionElementGenerator extends AbstractXmlElementGenerator {
-
-    public MySelectListByConditionElementGenerator() {
+    public MySelectCountByConditionElementGenerator() {
         super();
     }
 
@@ -25,15 +21,14 @@ public class MySelectListByConditionElementGenerator extends AbstractXmlElementG
                 "id", introspectedTable.getSelectListByConditionStatementId()));
         answer.addAttribute(new Attribute("parameterType",
                 "java.util.Map"));
-        answer.addAttribute(new Attribute("resultMap",
-                introspectedTable.getBaseResultMapId()));
+        answer.addAttribute(new Attribute("resultType",
+                "java.lang.Integer"));
         context.getCommentGenerator().addComment(answer);
 
         StringBuilder sb = new StringBuilder();
-        sb.append("select ");
+        sb.append("select count(1) ");
 
         answer.addElement(new TextElement(sb.toString()));
-        answer.addElement(getBaseColumnListElement());
         if (introspectedTable.hasBLOBColumns()) {
             answer.addElement(new TextElement(",")); //$NON-NLS-1$
             answer.addElement(getBlobColumnListElement());
@@ -66,26 +61,6 @@ public class MySelectListByConditionElementGenerator extends AbstractXmlElementG
             valuesNotNullElement.addElement(new TextElement(sb.toString()));
             answer.addElement(valuesNotNullElement);
         }
-
-        sb.setLength(0);
-        XmlElement orderParams = new XmlElement("if");
-        sb.append(" orderByParams != null");
-        orderParams.addAttribute(new Attribute("test",sb.toString()));
-        answer.addElement(orderParams);
-        XmlElement innerForEach = new XmlElement("foreach");
-        innerForEach.addAttribute(new Attribute("collection", "orderByParams"));
-        innerForEach.addAttribute(new Attribute("item", "item"));
-        innerForEach.addAttribute(new Attribute("index", "index"));
-        innerForEach.addAttribute(new Attribute("separator", ","));
-        innerForEach.addElement(new TextElement(" ${item}"));
-        answer.addElement(innerForEach);
-
-        sb.setLength(0);
-        XmlElement pageLimit = new XmlElement("if");
-        sb.append(" pageNumber != null and pageSize != null");
-        pageLimit.addAttribute(new Attribute("test",sb.toString()));
-        pageLimit.addElement(new TextElement(" limit #{pageNumber,jdbcType=INTEGER} , #{pageSize,jdbcType=INTEGER}"));
-        answer.addElement(pageLimit);
 
         if (context.getPlugins().sqlMapSelectAllElementGenerated(
                 answer, introspectedTable)) {
