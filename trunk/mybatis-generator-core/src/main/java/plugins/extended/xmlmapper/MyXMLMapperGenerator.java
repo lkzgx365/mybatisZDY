@@ -5,6 +5,7 @@ import org.mybatis.generator.api.dom.xml.Attribute;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.codegen.mybatis3.xmlmapper.XMLMapperGenerator;
 import org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.AbstractXmlElementGenerator;
+import plugins.extended.xmlmapper.elements.MySelectCountByConditionElementGenerator;
 import plugins.extended.xmlmapper.elements.MySelectListByConditionElementGenerator;
 
 import static org.mybatis.generator.internal.util.messages.Messages.getString;
@@ -36,6 +37,7 @@ public class MyXMLMapperGenerator extends XMLMapperGenerator {
         addUpdateByPrimaryKeySelectiveElement(answer);
         addUpdateByPrimaryKeyWithBLOBsElement(answer);
         addSimpleMySelectListByConditionElementGeneratorElement(answer);
+        addSimpleMySelectCountByConditionElementGeneratorElement(answer);
 
         return answer;
     }
@@ -44,6 +46,14 @@ public class MyXMLMapperGenerator extends XMLMapperGenerator {
         if (introspectedTable.getRules()
                 .generateSelectByPrimaryKey()) {
             AbstractXmlElementGenerator elementGenerator = new MySelectListByConditionElementGenerator();
+            initializeAndExecuteGenerator(elementGenerator, parentElement);
+        }
+    }
+
+    protected void addSimpleMySelectCountByConditionElementGeneratorElement(XmlElement parentElement){
+        if (introspectedTable.getRules()
+                .generateSelectByPrimaryKey()) {
+            AbstractXmlElementGenerator elementGenerator = new MySelectCountByConditionElementGenerator();
             initializeAndExecuteGenerator(elementGenerator, parentElement);
         }
     }
