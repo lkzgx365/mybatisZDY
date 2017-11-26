@@ -9,9 +9,9 @@ import org.mybatis.generator.codegen.mybatis3.javamapper.elements.AbstractJavaMa
 import java.util.Set;
 import java.util.TreeSet;
 
-public class MySelectListByConditionMethodGenerator extends AbstractJavaMapperMethodGenerator {
+public class MySelectCountByConditionMethodGenerator extends AbstractJavaMapperMethodGenerator {
 
-    public MySelectListByConditionMethodGenerator() {
+    public MySelectCountByConditionMethodGenerator() {
         super();
     }
 
@@ -32,14 +32,14 @@ public class MySelectListByConditionMethodGenerator extends AbstractJavaMapperMe
         importedTypes.add(listType);
         returnType.addTypeArgument(listType);
         method.setReturnType(returnType);
-        method.setName(introspectedTable.getSelectListByConditionStatementId());
+        method.setName(introspectedTable.getSelectCountByConditionStatementId());
 
         context.getCommentGenerator().addGeneralMethodComment(method,
                 introspectedTable);
 
         addMapperAnnotations(interfaze, method);
 
-        if (context.getPlugins().clientSelectListByConditionMethodGenerated(method,
+        if (context.getPlugins().clientSelectCountByConditionMethodGenerated(method,
                 interfaze, introspectedTable)) {
             interfaze.addImportedTypes(importedTypes);
             interfaze.addMethod(method);

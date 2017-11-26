@@ -61,6 +61,7 @@ public class MyJavaMapperGenerator extends JavaMapperGenerator {
         addUpdateByPrimaryKeyWithoutBLOBsMethod(interfaze);
         //增加selectAll
         addSelectListByConditionMethod(interfaze);
+        addSelectCountByConditionMethod(interfaze);
 
         List<CompilationUnit> answer = new ArrayList<CompilationUnit>();
         if (context.getPlugins().clientGenerated(interfaze, null,
@@ -77,6 +78,14 @@ public class MyJavaMapperGenerator extends JavaMapperGenerator {
     }
 
     protected void addSelectListByConditionMethod(Interface interfaze) {
+        if (introspectedTable.getRules()
+                .generateSelectByPrimaryKey()) {
+            AbstractJavaMapperMethodGenerator methodGenerator = new MySelectListByConditionMethodGenerator();
+            initializeAndExecuteGenerator(methodGenerator, interfaze);
+        }
+    }
+
+    protected void addSelectCountByConditionMethod(Interface interfaze) {
         if (introspectedTable.getRules()
                 .generateSelectByPrimaryKey()) {
             AbstractJavaMapperMethodGenerator methodGenerator = new MySelectListByConditionMethodGenerator();

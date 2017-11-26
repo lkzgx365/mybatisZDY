@@ -35,7 +35,6 @@ import java.util.Properties;
  * must perform validation.
  *
  * @author Jeff Butler
- *
  */
 public abstract class PluginAdapter implements Plugin {
     protected Context context;
@@ -278,11 +277,10 @@ public abstract class PluginAdapter implements Plugin {
 
     /**
      * 生成实体类注解KEY对象
-     * @param topLevelClass
-     *            the generated primary key class
-     * @param introspectedTable
-     *            The class containing information about the table as
-     *            introspected from the database
+     *
+     * @param topLevelClass     the generated primary key class
+     * @param introspectedTable The class containing information about the table as
+     *                          introspected from the database
      * @return
      */
     public boolean modelPrimaryKeyClassGenerated(TopLevelClass topLevelClass,
@@ -293,11 +291,10 @@ public abstract class PluginAdapter implements Plugin {
     /**
      * 生成带BLOB字段的对象
      * 在MBG生成key Class类的时候调用的插件的方法
-     * @param topLevelClass
-     *            the generated record with BLOBs class
-     * @param introspectedTable
-     *            The class containing information about the table as
-     *            introspected from the database
+     *
+     * @param topLevelClass     the generated record with BLOBs class
+     * @param introspectedTable The class containing information about the table as
+     *                          introspected from the database
      * @return
      */
     public boolean modelRecordWithBLOBsClassGenerated(
@@ -503,6 +500,16 @@ public abstract class PluginAdapter implements Plugin {
 
     public boolean sqlMapSelectAllElementGenerated(XmlElement element,
                                                    IntrospectedTable introspectedTable) {
+        return true;
+    }
+
+    @Override
+    public boolean clientSelectListByConditionMethodGenerated(Method method, Interface interfaze, IntrospectedTable introspectedTable) {
+        return true;
+    }
+
+    @Override
+    public boolean clientSelectCountByConditionMethodGenerated(Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 }

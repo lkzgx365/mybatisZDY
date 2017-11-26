@@ -755,6 +755,7 @@ public abstract class IntrospectedTable {
         setUpdateByPrimaryKeySelectiveStatementId("updateByPrimaryKeySelective"); //$NON-NLS-1$
         setUpdateByPrimaryKeyWithBLOBsStatementId("updateByPrimaryKeyWithBLOBs"); //$NON-NLS-1$
         setSelectListByConditionStatementId("selectListByCondition");//自定义查询
+        setSelectCountByConditionStatementId("selectCountByCondition");//自定义查询
         setBaseResultMapId("BaseResultMap"); //$NON-NLS-1$
         setResultMapWithBLOBsId("ResultMapWithBLOBs"); //$NON-NLS-1$
         setExampleWhereClauseId("Example_Where_Clause"); //$NON-NLS-1$
@@ -1207,6 +1208,22 @@ public abstract class IntrospectedTable {
      * 自定义语句
      */
     public void setSelectListByConditionStatementId(String s) {
+        internalAttributes.put(
+                InternalAttribute.ATTR_SELECT_LIST_BY_CONDITION_ID, s);
+    }
+
+    /**
+     * 自定义语句
+     */
+    public String getSelectCountByConditionStatementId() {
+        return internalAttributes.get(
+                InternalAttribute.ATTR_SELECT_LIST_BY_CONDITION_ID);
+    }
+
+    /**
+     * 自定义语句
+     */
+    public void setSelectCountByConditionStatementId(String s) {
         internalAttributes.put(
                 InternalAttribute.ATTR_SELECT_LIST_BY_CONDITION_ID, s);
     }
