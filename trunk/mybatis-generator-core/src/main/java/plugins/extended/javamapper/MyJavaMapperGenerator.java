@@ -47,13 +47,11 @@ public class MyJavaMapperGenerator extends JavaMapperGenerator {
             interfaze.addImportedType(fqjt);
         }
 
-        addCountByExampleMethod(interfaze);
-        addDeleteByExampleMethod(interfaze);
         addDeleteByPrimaryKeyMethod(interfaze);
         addInsertSelectiveMethod(interfaze);
         addSelectByPrimaryKeyMethod(interfaze);
         addUpdateByPrimaryKeySelectiveMethod(interfaze);
-//        addUpdateByPrimaryKeyWithBLOBsMethod(interfaze);
+        addUpdateByPrimaryKeyWithBLOBsMethod(interfaze);
         //增加selectAll
         addSelectListByConditionMethod(interfaze);
         addSelectCountByConditionMethod(interfaze);
