@@ -95,11 +95,8 @@ public class ResultMapWithoutBLOBsElementGenerator extends
         }
 
         List<IntrospectedColumn> columns;
-        if (isSimple) {
-            columns = introspectedTable.getNonPrimaryKeyColumns();
-        } else {
-            columns = introspectedTable.getBaseColumns();
-        }
+        columns = introspectedTable.getNonPrimaryKeyColumns();
+
         for (IntrospectedColumn introspectedColumn : columns) {
             XmlElement resultElement = new XmlElement("result"); //$NON-NLS-1$
 
@@ -145,11 +142,9 @@ public class ResultMapWithoutBLOBsElementGenerator extends
         }
 
         List<IntrospectedColumn> columns;
-        if (isSimple) {
-            columns = introspectedTable.getNonPrimaryKeyColumns();
-        } else {
-            columns = introspectedTable.getBaseColumns();
-        }
+
+        columns = introspectedTable.getBaseColumns();
+
         for (IntrospectedColumn introspectedColumn : columns) {
             XmlElement resultElement = new XmlElement("arg"); //$NON-NLS-1$
 
