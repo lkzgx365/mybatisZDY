@@ -10,6 +10,7 @@ import org.mybatis.generator.codegen.mybatis3.javamapper.elements.AbstractJavaMa
 import org.mybatis.generator.config.PropertyRegistry;
 import org.mybatis.generator.internal.util.StringUtility;
 import org.mybatis.generator.internal.util.messages.Messages;
+import plugins.extended.javamapper.elements.MySelectByCodeMethodGenerator;
 import plugins.extended.javamapper.elements.MySelectCountByConditionMethodGenerator;
 import plugins.extended.javamapper.elements.MySelectListByConditionMethodGenerator;
 import plugins.extended.javamapper.elements.MyUpdateByBusinessCodeMethodGenerator;
@@ -56,7 +57,7 @@ public class MyJavaMapperGenerator extends JavaMapperGenerator {
         addSelectListByConditionMethod(interfaze);
         addSelectCountByConditionMethod(interfaze);
         addSelectByBusinessCodeMethod(interfaze);
-
+        addUpdateByBusinessCodeMethod(interfaze);
 
         List<CompilationUnit> answer = new ArrayList<CompilationUnit>();
         if (context.getPlugins().clientGenerated(interfaze, null,
@@ -74,7 +75,7 @@ public class MyJavaMapperGenerator extends JavaMapperGenerator {
 
     protected void addSelectListByConditionMethod(Interface interfaze) {
         if (introspectedTable.getRules()
-                .generateSelectByPrimaryKey()) {
+                .generateSelectListByCondition()) {
             AbstractJavaMapperMethodGenerator methodGenerator = new MySelectListByConditionMethodGenerator();
             initializeAndExecuteGenerator(methodGenerator, interfaze);
         }
@@ -82,7 +83,7 @@ public class MyJavaMapperGenerator extends JavaMapperGenerator {
 
     protected void addSelectCountByConditionMethod(Interface interfaze) {
         if (introspectedTable.getRules()
-                .generateSelectByPrimaryKey()) {
+                .generateSelectCountByCondition()) {
             AbstractJavaMapperMethodGenerator methodGenerator = new MySelectCountByConditionMethodGenerator();
             initializeAndExecuteGenerator(methodGenerator, interfaze);
         }
@@ -90,6 +91,13 @@ public class MyJavaMapperGenerator extends JavaMapperGenerator {
 
     protected void addSelectByBusinessCodeMethod(Interface interfaze){
         if(introspectedTable.getRules().generateSelectByCode()){
+            AbstractJavaMapperMethodGenerator methodGenerator = new MySelectByCodeMethodGenerator();
+            initializeAndExecuteGenerator(methodGenerator,interfaze);
+        }
+    }
+
+    protected void addUpdateByBusinessCodeMethod(Interface interfaze){
+        if(introspectedTable.getRules().generateUpdateByBusinessCode()){
             AbstractJavaMapperMethodGenerator methodGenerator = new MyUpdateByBusinessCodeMethodGenerator();
             initializeAndExecuteGenerator(methodGenerator,interfaze);
         }
