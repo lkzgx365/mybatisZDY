@@ -19,8 +19,8 @@
         </commentGenerator>
         <!--数据库链接 参数 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://192.168.128.132:3306/test" userId="test"
-                        password="123123">
+                        connectionURL="jdbc:mysql://114.113.112.197:18060/zima" userId="javagroup"
+                        password="jN2hbH0Saht#GaQKzUQJ*RM3wO=a">
         </jdbcConnection>
         <javaTypeResolver>
             <!-- This property is used to specify whether MyBatis Generator should
@@ -34,7 +34,7 @@
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
         <!-- 生成映射文件的包名和位置 -->
-        <sqlMapGenerator targetPackage="mapper.wld"
+        <sqlMapGenerator targetPackage="mappers.wld"
                          targetProject="src/main/resources">
             <property name="enableSubPackages" value="true" />
         </sqlMapGenerator>
@@ -45,7 +45,7 @@
         </javaClientGenerator>
 
         <!-- 要生成哪些表 -->
-        <table tableName="t_user" domainObjectName="user"
+        <table tableName="loan_wld_deal" domainObjectName="LoanWldDeal"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"></table>
