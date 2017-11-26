@@ -25,7 +25,7 @@ public class MySelectByCodeMethodGenerator extends AbstractJavaMapperMethodGener
         method.setReturnType(returnType);
         importedTypes.add(returnType);
 
-        method.setName(introspectedTable.getSelectByPrimaryKeyStatementId());
+        method.setName(introspectedTable.getSelectByBusinessCodeStatementId());
 
         List<IntrospectedColumn> introspectedColumns = introspectedTable
                 .getIndexColumns();
