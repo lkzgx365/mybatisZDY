@@ -1,9 +1,6 @@
 package plugins.extended.javamapper.elements;
 
-import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
-import org.mybatis.generator.api.dom.java.Interface;
-import org.mybatis.generator.api.dom.java.JavaVisibility;
-import org.mybatis.generator.api.dom.java.Method;
+import org.mybatis.generator.api.dom.java.*;
 import org.mybatis.generator.codegen.mybatis3.javamapper.elements.AbstractJavaMapperMethodGenerator;
 
 import java.util.Set;
@@ -38,6 +35,10 @@ public class MySelectListByConditionMethodGenerator extends AbstractJavaMapperMe
                 introspectedTable);
 
         addMapperAnnotations(interfaze, method);
+
+        FullyQualifiedJavaType type = new FullyQualifiedJavaType("java.util.Map<String,Object>");
+        importedTypes.add(type);
+        method.addParameter(new Parameter(type,"paramMap"));
 
         if (context.getPlugins().clientSelectListByConditionMethodGenerated(method,
                 interfaze, introspectedTable)) {
