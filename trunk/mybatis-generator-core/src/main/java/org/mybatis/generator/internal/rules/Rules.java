@@ -177,6 +177,12 @@ public interface Rules {
      */
     boolean generateSelectByPrimaryKey();
 
+    boolean generateSelectListByCondition();
+
+    boolean generateSelectCountByCondition();
+
+    boolean generateSelectByCode();
+
     /**
      * Implements the rule for generating the select by example without BLOBs
      * SQL Map element and DAO method. If the selectByExample statement is
@@ -250,4 +256,6 @@ public interface Rules {
     boolean generateJavaClient();
 
     IntrospectedTable getIntrospectedTable();
+
+    boolean generateUpdateByBusinessCode();
 }

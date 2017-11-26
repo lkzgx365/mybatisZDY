@@ -46,6 +46,8 @@ public abstract class IntrospectedTable {
     protected Rules rules;
     /** The primary key columns. */
     protected List<IntrospectedColumn> primaryKeyColumns;
+
+    protected List<IntrospectedColumn> indexColumns;
     /** The base columns. */
     protected List<IntrospectedColumn> baseColumns;
     /** The blob columns. */
@@ -78,6 +80,7 @@ public abstract class IntrospectedTable {
         super();
         this.targetRuntime = targetRuntime;
         primaryKeyColumns = new ArrayList<IntrospectedColumn>();
+        indexColumns = new ArrayList<IntrospectedColumn>();
         baseColumns = new ArrayList<IntrospectedColumn>();
         blobColumns = new ArrayList<IntrospectedColumn>();
         attributes = new HashMap<String, Object>();
@@ -171,6 +174,20 @@ public abstract class IntrospectedTable {
                 }
             }
 
+            for (IntrospectedColumn introspectedColumn : indexColumns) {
+                if (introspectedColumn.isColumnNameDelimited()) {
+                    if (introspectedColumn.getActualColumnName().equals(
+                            columnName)) {
+                        return introspectedColumn;
+                    }
+                } else {
+                    if (introspectedColumn.getActualColumnName()
+                            .equalsIgnoreCase(columnName)) {
+                        return introspectedColumn;
+                    }
+                }
+            }
+
             // search blob columns
             for (IntrospectedColumn introspectedColumn : blobColumns) {
                 if (introspectedColumn.isColumnNameDelimited()) {
@@ -207,6 +224,12 @@ public abstract class IntrospectedTable {
         }
 
         if (!rc) {
+            for (IntrospectedColumn introspectedColumn : indexColumns) {
+                if (introspectedColumn.isJDBCDateColumn()) {
+                    rc = true;
+                    break;
+                }
+            }
             for (IntrospectedColumn introspectedColumn : baseColumns) {
                 if (introspectedColumn.isJDBCDateColumn()) {
                     rc = true;
@@ -235,6 +258,12 @@ public abstract class IntrospectedTable {
         }
 
         if (!rc) {
+            for (IntrospectedColumn introspectedColumn : indexColumns) {
+                if (introspectedColumn.isJDBCDateColumn()) {
+                    rc = true;
+                    break;
+                }
+            }
             for (IntrospectedColumn introspectedColumn : baseColumns) {
                 if (introspectedColumn.isJDBCTimeColumn()) {
                     rc = true;
@@ -255,6 +284,10 @@ public abstract class IntrospectedTable {
      */
     public List<IntrospectedColumn> getPrimaryKeyColumns() {
         return primaryKeyColumns;
+    }
+
+    public List<IntrospectedColumn> getIndexColumns() {
+        return indexColumns;
     }
 
     /**
@@ -283,6 +316,7 @@ public abstract class IntrospectedTable {
     public List<IntrospectedColumn> getAllColumns() {
         List<IntrospectedColumn> answer = new ArrayList<IntrospectedColumn>();
         answer.addAll(primaryKeyColumns);
+        answer.addAll(indexColumns);
         answer.addAll(baseColumns);
         answer.addAll(blobColumns);
 
@@ -297,6 +331,7 @@ public abstract class IntrospectedTable {
     public List<IntrospectedColumn> getNonBLOBColumns() {
         List<IntrospectedColumn> answer = new ArrayList<IntrospectedColumn>();
         answer.addAll(primaryKeyColumns);
+        answer.addAll(indexColumns);
         answer.addAll(baseColumns);
 
         return answer;
@@ -308,7 +343,7 @@ public abstract class IntrospectedTable {
      * @return the non blob column count
      */
     public int getNonBLOBColumnCount() {
-        return primaryKeyColumns.size() + baseColumns.size();
+        return primaryKeyColumns.size() + baseColumns.size() + indexColumns.size();
     }
 
     /**
@@ -319,6 +354,7 @@ public abstract class IntrospectedTable {
     public List<IntrospectedColumn> getNonPrimaryKeyColumns() {
         List<IntrospectedColumn> answer = new ArrayList<IntrospectedColumn>();
         answer.addAll(baseColumns);
+//        answer.addAll(indexColumns);
         answer.addAll(blobColumns);
 
         return answer;
@@ -670,6 +706,35 @@ public abstract class IntrospectedTable {
         }
     }
 
+    public void addIndexColumn(String columnName) {
+        boolean found = false;
+        // first search base columns
+        Iterator<IntrospectedColumn> iter = baseColumns.iterator();
+        while (iter.hasNext()) {
+            IntrospectedColumn introspectedColumn = iter.next();
+            if (introspectedColumn.getActualColumnName().equals(columnName)) {
+                indexColumns.add(introspectedColumn);
+                iter.remove();
+                found = true;
+                break;
+            }
+        }
+
+        // search blob columns in the weird event that a blob is the primary key
+        if (!found) {
+            iter = blobColumns.iterator();
+            while (iter.hasNext()) {
+                IntrospectedColumn introspectedColumn = iter.next();
+                if (introspectedColumn.getActualColumnName().equals(columnName)) {
+                    indexColumns.add(introspectedColumn);
+                    iter.remove();
+                    found = true;
+                    break;
+                }
+            }
+        }
+    }
+
     /**
      * Gets the attribute.
      *
@@ -756,6 +821,8 @@ public abstract class IntrospectedTable {
         setUpdateByPrimaryKeyWithBLOBsStatementId("updateByPrimaryKeyWithBLOBs"); //$NON-NLS-1$
         setSelectListByConditionStatementId("selectListByCondition");//自定义查询
         setSelectCountByConditionStatementId("selectCountByCondition");//自定义查询
+        setSelectByBusinessCodeStatementId("selectByBusinessCode");
+        setUpdateByBusinessCodeStatementId("updateByBusinessCode");
         setBaseResultMapId("BaseResultMap"); //$NON-NLS-1$
         setResultMapWithBLOBsId("ResultMapWithBLOBs"); //$NON-NLS-1$
         setExampleWhereClauseId("Example_Where_Clause"); //$NON-NLS-1$
@@ -1226,6 +1293,22 @@ public abstract class IntrospectedTable {
     public void setSelectCountByConditionStatementId(String s) {
         internalAttributes.put(
                 InternalAttribute.ATTR_SELECT_COUNT_BY_CONDITION_ID, s);
+    }
+
+    public String getSelectByBusinessCodeStatementId(){
+        return internalAttributes.get(InternalAttribute.ATTR_SELECT_BY_BUSINESS_CODE_ID);
+    }
+
+    public void setSelectByBusinessCodeStatementId(String s){
+        internalAttributes.put(InternalAttribute.ATTR_SELECT_BY_BUSINESS_CODE_ID,s);
+    }
+
+    public String getUpdateByBusinessCodeStatementId(){
+        return internalAttributes.get(InternalAttribute.ATTR_UPDATE_BY_BUSINESS_CODE_ID);
+    }
+
+    public void setUpdateByBusinessCodeStatementId(String s){
+        internalAttributes.put(InternalAttribute.ATTR_UPDATE_BY_BUSINESS_CODE_ID,s);
     }
 
     /**
