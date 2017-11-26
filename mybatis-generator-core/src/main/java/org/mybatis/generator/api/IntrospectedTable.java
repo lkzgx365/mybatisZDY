@@ -1217,7 +1217,7 @@ public abstract class IntrospectedTable {
      */
     public String getSelectCountByConditionStatementId() {
         return internalAttributes.get(
-                InternalAttribute.ATTR_SELECT_LIST_BY_CONDITION_ID);
+                    InternalAttribute.ATTR_SELECT_COUNT_BY_CONDITION_ID);
     }
 
     /**
@@ -1225,7 +1225,7 @@ public abstract class IntrospectedTable {
      */
     public void setSelectCountByConditionStatementId(String s) {
         internalAttributes.put(
-                InternalAttribute.ATTR_SELECT_LIST_BY_CONDITION_ID, s);
+                InternalAttribute.ATTR_SELECT_COUNT_BY_CONDITION_ID, s);
     }
 
     /**
