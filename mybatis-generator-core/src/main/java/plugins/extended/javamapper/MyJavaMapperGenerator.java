@@ -12,6 +12,7 @@ import org.mybatis.generator.internal.util.StringUtility;
 import org.mybatis.generator.internal.util.messages.Messages;
 import plugins.extended.javamapper.elements.MySelectCountByConditionMethodGenerator;
 import plugins.extended.javamapper.elements.MySelectListByConditionMethodGenerator;
+import plugins.extended.javamapper.elements.MyUpdateByBusinessCodeMethodGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,14 +50,15 @@ public class MyJavaMapperGenerator extends JavaMapperGenerator {
         addCountByExampleMethod(interfaze);
         addDeleteByExampleMethod(interfaze);
         addDeleteByPrimaryKeyMethod(interfaze);
-        addInsertMethod(interfaze);
         addInsertSelectiveMethod(interfaze);
         addSelectByPrimaryKeyMethod(interfaze);
         addUpdateByPrimaryKeySelectiveMethod(interfaze);
-        addUpdateByPrimaryKeyWithBLOBsMethod(interfaze);
+//        addUpdateByPrimaryKeyWithBLOBsMethod(interfaze);
         //增加selectAll
         addSelectListByConditionMethod(interfaze);
         addSelectCountByConditionMethod(interfaze);
+        addSelectByBusinessCodeMethod(interfaze);
+
 
         List<CompilationUnit> answer = new ArrayList<CompilationUnit>();
         if (context.getPlugins().clientGenerated(interfaze, null,
@@ -85,6 +87,13 @@ public class MyJavaMapperGenerator extends JavaMapperGenerator {
                 .generateSelectByPrimaryKey()) {
             AbstractJavaMapperMethodGenerator methodGenerator = new MySelectCountByConditionMethodGenerator();
             initializeAndExecuteGenerator(methodGenerator, interfaze);
+        }
+    }
+
+    protected void addSelectByBusinessCodeMethod(Interface interfaze){
+        if(introspectedTable.getRules().generateSelectByCode()){
+            AbstractJavaMapperMethodGenerator methodGenerator = new MyUpdateByBusinessCodeMethodGenerator();
+            initializeAndExecuteGenerator(methodGenerator,interfaze);
         }
     }
 }

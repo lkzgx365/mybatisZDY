@@ -90,6 +90,8 @@ public class IntrospectedColumn {
         properties = new Properties();
     }
 
+
+
     public int getJdbcType() {
         return jdbcType;
     }

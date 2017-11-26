@@ -36,6 +36,21 @@ public class HierarchicalModelRules extends BaseRules {
         super(introspectedTable);
     }
 
+    @Override
+    public boolean generateSelectListByCondition() {
+        return true;
+    }
+
+    @Override
+    public boolean generateSelectCountByCondition() {
+        return true;
+    }
+
+    @Override
+    public boolean generateSelectByCode() {
+        return true;
+    }
+
     /**
      * Implements the rule for determining whether to generate a primary key
      * class. If the physical table has a primary key, then we generate the

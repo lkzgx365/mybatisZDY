@@ -37,6 +37,21 @@ public class ConditionalModelRules extends BaseRules {
         super(introspectedTable);
     }
 
+    @Override
+    public boolean generateSelectListByCondition() {
+        return true;
+    }
+
+    @Override
+    public boolean generateSelectCountByCondition() {
+        return true;
+    }
+
+    @Override
+    public boolean generateSelectByCode() {
+        return true;
+    }
+
     /**
      * We generate a primary key if there is more than one primary key field.
      *

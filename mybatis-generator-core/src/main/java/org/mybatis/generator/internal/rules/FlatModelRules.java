@@ -36,6 +36,21 @@ public class FlatModelRules extends BaseRules {
         super(introspectedTable);
     }
 
+    @Override
+    public boolean generateSelectListByCondition() {
+        return true;
+    }
+
+    @Override
+    public boolean generateSelectCountByCondition() {
+        return true;
+    }
+
+    @Override
+    public boolean generateSelectByCode() {
+        return true;
+    }
+
     /**
      * We never generate a primary key in the flat model.
      *

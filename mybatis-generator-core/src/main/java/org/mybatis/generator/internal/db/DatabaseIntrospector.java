@@ -130,10 +130,22 @@ public class DatabaseIntrospector {
                 short keySeq = rs.getShort("KEY_SEQ"); //$NON-NLS-1$
                 keyColumns.put(keySeq, columnName);
             }
-
             for (String columnName : keyColumns.values()) {
                 introspectedTable.addPrimaryKeyColumn(columnName);
             }
+            ResultSet indexSet = databaseMetaData.getIndexInfo(null, null, table.getIntrospectedTableName(), false, false);
+            Set<String> iSet = new TreeSet<String>();
+            while(indexSet.next()){
+                if(!"PRIMARY".equals(indexSet.getString("INDEX_NAME"))) {
+                    String columnName = indexSet.getString("COLUMN_NAME");
+                    iSet.add(columnName);
+                }
+            }
+            for(String columnName : iSet){
+                introspectedTable.addIndexColumn(columnName);
+            }
+
+
         } catch (SQLException e) {
             // ignore the primary key if there's any error
         } finally {

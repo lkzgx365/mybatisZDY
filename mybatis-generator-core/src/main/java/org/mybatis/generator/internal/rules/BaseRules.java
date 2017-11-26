@@ -487,4 +487,9 @@ public abstract class BaseRules implements Rules {
     public boolean generateJavaClient() {
         return !isModelOnly;
     }
+
+    @Override
+    public boolean generateUpdateByBusinessCode() {
+        return true;
+    }
 }

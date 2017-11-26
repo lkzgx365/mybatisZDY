@@ -124,6 +124,21 @@ public class RulesDelegate implements Rules {
         return rules.generateSelectByPrimaryKey();
     }
 
+    @Override
+    public boolean generateSelectListByCondition() {
+        return rules.generateSelectListByCondition();
+    }
+
+    @Override
+    public boolean generateSelectCountByCondition() {
+        return rules.generateSelectCountByCondition();
+    }
+
+    @Override
+    public boolean generateSelectByCode() {
+        return rules.generateSelectByCode();
+    }
+
     public boolean generateSQLExampleWhereClause() {
         return rules.generateSQLExampleWhereClause();
     }
@@ -162,6 +177,11 @@ public class RulesDelegate implements Rules {
 
     public IntrospectedTable getIntrospectedTable() {
         return rules.getIntrospectedTable();
+    }
+
+    @Override
+    public boolean generateUpdateByBusinessCode() {
+        return rules.generateUpdateByBusinessCode();
     }
 
     public boolean generateBaseColumnList() {
