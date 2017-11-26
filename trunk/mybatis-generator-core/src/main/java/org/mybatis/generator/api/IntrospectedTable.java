@@ -354,7 +354,7 @@ public abstract class IntrospectedTable {
     public List<IntrospectedColumn> getNonPrimaryKeyColumns() {
         List<IntrospectedColumn> answer = new ArrayList<IntrospectedColumn>();
         answer.addAll(baseColumns);
-//        answer.addAll(indexColumns);
+        answer.addAll(indexColumns);
         answer.addAll(blobColumns);
 
         return answer;
