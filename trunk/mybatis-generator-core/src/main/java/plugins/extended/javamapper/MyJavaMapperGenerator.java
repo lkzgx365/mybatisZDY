@@ -10,6 +10,7 @@ import org.mybatis.generator.codegen.mybatis3.javamapper.elements.AbstractJavaMa
 import org.mybatis.generator.config.PropertyRegistry;
 import org.mybatis.generator.internal.util.StringUtility;
 import org.mybatis.generator.internal.util.messages.Messages;
+import plugins.extended.javamapper.elements.MySelectCountByConditionMethodGenerator;
 import plugins.extended.javamapper.elements.MySelectListByConditionMethodGenerator;
 
 import java.util.ArrayList;
@@ -88,7 +89,7 @@ public class MyJavaMapperGenerator extends JavaMapperGenerator {
     protected void addSelectCountByConditionMethod(Interface interfaze) {
         if (introspectedTable.getRules()
                 .generateSelectByPrimaryKey()) {
-            AbstractJavaMapperMethodGenerator methodGenerator = new MySelectListByConditionMethodGenerator();
+            AbstractJavaMapperMethodGenerator methodGenerator = new MySelectCountByConditionMethodGenerator();
             initializeAndExecuteGenerator(methodGenerator, interfaze);
         }
     }
