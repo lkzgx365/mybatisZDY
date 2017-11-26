@@ -1175,6 +1175,36 @@ public final class PluginAggregator implements Plugin {
         return rc;
     }
 
+    @Override
+    public boolean clientSelectListByConditionMethodGenerated(Method method, Interface interfaze, IntrospectedTable introspectedTable) {
+        boolean rc = true;
+
+        for (Plugin plugin : plugins) {
+            if (!plugin.clientSelectListByConditionMethodGenerated(method,
+                    interfaze, introspectedTable)) {
+                rc = false;
+                break;
+            }
+        }
+
+        return rc;
+    }
+
+    @Override
+    public boolean clientSelectCountByConditionMethodGenerated(Method method, Interface interfaze, IntrospectedTable introspectedTable) {
+        boolean rc = true;
+
+        for (Plugin plugin : plugins) {
+            if (!plugin.clientSelectListByConditionMethodGenerated(method,
+                    interfaze, introspectedTable)) {
+                rc = false;
+                break;
+            }
+        }
+
+        return rc;
+    }
+
     public boolean sqlMapSelectAllElementGenerated(XmlElement element,
                                                    IntrospectedTable introspectedTable) {
         boolean rc = true;

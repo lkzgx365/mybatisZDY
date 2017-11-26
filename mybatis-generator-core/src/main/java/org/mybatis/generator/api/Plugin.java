@@ -1579,6 +1579,24 @@ public interface Plugin {
                                                                TopLevelClass topLevelClass, IntrospectedTable introspectedTable);
 
     /**
+     * 自定义查询语句
+     * @param method    方法名称
+     * @param interfaze   接口名称
+     * @param introspectedTable  接口表名称
+     * @return    是否成功
+     */
+    boolean clientSelectListByConditionMethodGenerated(Method method, Interface interfaze, IntrospectedTable introspectedTable);
+
+    /**
+     * 自定义查询数量
+     * @param method
+     * @param interfaze
+     * @param introspectedTable
+     * @return
+     */
+    boolean clientSelectCountByConditionMethodGenerated(Method method, Interface interfaze, IntrospectedTable introspectedTable);
+
+    /**
      * The Enum ModelClassType.
      */
     public enum ModelClassType {
