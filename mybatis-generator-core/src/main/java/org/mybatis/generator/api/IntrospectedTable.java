@@ -315,8 +315,10 @@ public abstract class IntrospectedTable {
      */
     public List<IntrospectedColumn> getAllColumns() {
         List<IntrospectedColumn> answer = new ArrayList<IntrospectedColumn>();
-        answer.addAll(primaryKeyColumns);
-        answer.addAll(indexColumns);
+        List<IntrospectedColumn> indexC = new ArrayList<>();
+        indexC.addAll(primaryKeyColumns);
+        indexC.addAll(indexColumns);
+        answer.addAll(indexC);
         answer.addAll(baseColumns);
         answer.addAll(blobColumns);
 
@@ -330,8 +332,10 @@ public abstract class IntrospectedTable {
      */
     public List<IntrospectedColumn> getNonBLOBColumns() {
         List<IntrospectedColumn> answer = new ArrayList<IntrospectedColumn>();
-        answer.addAll(primaryKeyColumns);
-        answer.addAll(indexColumns);
+        List<IntrospectedColumn> indexC = new ArrayList<>();
+        indexC.addAll(primaryKeyColumns);
+        indexC.addAll(indexColumns);
+        answer.addAll(indexC);
         answer.addAll(baseColumns);
 
         return answer;
@@ -353,8 +357,10 @@ public abstract class IntrospectedTable {
      */
     public List<IntrospectedColumn> getNonPrimaryKeyColumns() {
         List<IntrospectedColumn> answer = new ArrayList<IntrospectedColumn>();
-        answer.addAll(baseColumns);
-        answer.addAll(indexColumns);
+        List<IntrospectedColumn> indexC = new ArrayList<>();
+        indexC.addAll(indexColumns);
+        indexC.addAll(baseColumns);
+        answer.addAll(indexC);
         answer.addAll(blobColumns);
 
         return answer;
