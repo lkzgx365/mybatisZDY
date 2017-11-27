@@ -7,10 +7,6 @@ import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.codegen.mybatis3.ListUtilities;
 import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
 import org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.AbstractXmlElementGenerator;
-import org.mybatis.generator.config.PropertyRegistry;
-import org.mybatis.generator.internal.util.StringUtility;
-
-import java.util.Iterator;
 
 public class MySelectListByConditionElementGenerator extends AbstractXmlElementGenerator {
 
@@ -71,14 +67,21 @@ public class MySelectListByConditionElementGenerator extends AbstractXmlElementG
         XmlElement orderParams = new XmlElement("if");
         sb.append(" orderByParams != null");
         orderParams.addAttribute(new Attribute("test",sb.toString()));
-        answer.addElement(orderParams);
         XmlElement innerForEach = new XmlElement("foreach");
         innerForEach.addAttribute(new Attribute("collection", "orderByParams"));
         innerForEach.addAttribute(new Attribute("item", "item"));
         innerForEach.addAttribute(new Attribute("index", "index"));
         innerForEach.addAttribute(new Attribute("separator", ","));
-        innerForEach.addElement(new TextElement(" ${item}"));
-        answer.addElement(innerForEach);
+        innerForEach.addElement(new TextElement(" #{item}"));
+        orderParams.addElement(innerForEach);
+        XmlElement descParams = new XmlElement("if");
+        descParams.addAttribute(new Attribute("test", " descParam != null "));
+        descParams.addElement(new TextElement("${descParam" + "}"));
+        orderParams.addElement(descParams);
+        answer.addElement(orderParams);
+
+
+
 
         sb.setLength(0);
         XmlElement pageLimit = new XmlElement("if");
