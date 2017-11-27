@@ -1426,14 +1426,14 @@ public abstract class IntrospectedTable {
         sb.append(calculateJavaClientImplementationPackage());
         sb.append('.');
         sb.append(fullyQualifiedTable.getDomainObjectName());
-        sb.append("DAOImpl"); //$NON-NLS-1$
+        sb.append("DaoImpl"); //$NON-NLS-1$
         setDAOImplementationType(sb.toString());
 
         sb.setLength(0);
         sb.append(calculateJavaClientInterfacePackage());
         sb.append('.');
         sb.append(fullyQualifiedTable.getDomainObjectName());
-        sb.append("DAO"); //$NON-NLS-1$
+        sb.append("Dao"); //$NON-NLS-1$
         setDAOInterfaceType(sb.toString());
 
         sb.setLength(0);
@@ -1443,7 +1443,7 @@ public abstract class IntrospectedTable {
             sb.append(tableConfiguration.getMapperName());
         } else {
             sb.append(fullyQualifiedTable.getDomainObjectName());
-            sb.append("DAO"); //$NON-NLS-1$
+            sb.append("Dao"); //$NON-NLS-1$
         }
         setMyBatis3JavaMapperType(sb.toString());
 
