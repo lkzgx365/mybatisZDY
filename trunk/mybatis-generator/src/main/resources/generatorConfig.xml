@@ -19,9 +19,11 @@
         </commentGenerator>
         <!--数据库链接 参数 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://114.113.112.197:18060/zima" userId="javagroup"
+                        connectionURL="jdbc:mysql://114.113.112.197:18060/zima?useSSL=false" userId="javagroup"
                         password="jN2hbH0Saht#GaQKzUQJ*RM3wO=a">
         </jdbcConnection>
+       <!-- <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.128.132:3306/test" userId="test" password="123123" >
+        </jdbcConnection>-->
         <javaTypeResolver>
             <!-- This property is used to specify whether MyBatis Generator should
                 force the use of java.math.BigDecimal for DECIMAL and NUMERIC fields, -->
