@@ -32,7 +32,7 @@ public class MySelectByCodeElementGenerator extends AbstractXmlElementGenerator 
         }
 
         answer.addAttribute(new Attribute("parameterType",
-                "map"));
+                "java.util.Map"));
 
         context.getCommentGenerator().addComment(answer);
 
