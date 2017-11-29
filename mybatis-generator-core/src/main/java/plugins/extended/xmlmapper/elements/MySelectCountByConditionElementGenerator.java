@@ -18,7 +18,7 @@ public class MySelectCountByConditionElementGenerator extends AbstractXmlElement
     public void addElements(XmlElement parentElement) {
         XmlElement answer = new XmlElement("select");
         answer.addAttribute(new Attribute(
-                "id", introspectedTable.getSelectListByConditionStatementId()));
+                "id", introspectedTable.getSelectCountByConditionStatementId()));
         answer.addAttribute(new Attribute("parameterType",
                 "java.util.Map"));
         answer.addAttribute(new Attribute("resultType",
