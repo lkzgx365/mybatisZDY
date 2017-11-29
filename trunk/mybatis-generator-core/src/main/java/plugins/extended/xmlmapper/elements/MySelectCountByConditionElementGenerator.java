@@ -62,6 +62,55 @@ public class MySelectCountByConditionElementGenerator extends AbstractXmlElement
             answer.addElement(valuesNotNullElement);
         }
 
+        for(IntrospectedColumn introspectedColumn : ListUtilities.removeIdentityAndGeneratedAlwaysColumns(introspectedTable
+                .getAllColumns())) {
+            sb.setLength(0);
+            if("VARCHAR".equals(introspectedColumn.getJdbcTypeName())) {
+                XmlElement valuesNotNullElement = new XmlElement("if"); //$NON-NLS-1$
+                sb.append(introspectedColumn.getJavaProperty() + "Param");
+                sb.append(" != null "); //$NON-NLS-1$
+                valuesNotNullElement.addAttribute(new Attribute(
+                        "test", sb.toString())); //$NON-NLS-1$
+
+                sb.setLength(0);
+                sb.append(" and ");
+                sb.append(MyBatis3FormattingUtilities
+                        .getAliasedEscapedColumnName(introspectedColumn));
+                sb.append(" LIKE CONCAT('%',#{" + introspectedColumn.getJavaProperty() + "Param,jdbcType=VARCHAR},'%') ");
+                valuesNotNullElement.addElement(new TextElement(sb.toString()));
+                answer.addElement(valuesNotNullElement);
+            }else if("TIMESTAMP".equals(introspectedColumn.getJdbcTypeName())){
+                XmlElement valuesNotNullElementStart = new XmlElement("if"); //$NON-NLS-1$
+                sb.append(introspectedColumn.getJavaProperty() + "Start");
+                sb.append(" != null "); //$NON-NLS-1$
+                valuesNotNullElementStart.addAttribute(new Attribute(
+                        "test", sb.toString())); //$NON-NLS-1$
+
+                sb.setLength(0);
+                sb.append(" and ");
+                sb.append(MyBatis3FormattingUtilities
+                        .getAliasedEscapedColumnName(introspectedColumn));
+                sb.append(" &gt; "+introspectedColumn.getJavaProperty() + "Start");
+                valuesNotNullElementStart.addElement(new TextElement(sb.toString()));
+                answer.addElement(valuesNotNullElementStart);
+
+                sb.setLength(0);
+                XmlElement valuesNotNullElementEnd = new XmlElement("if"); //$NON-NLS-1$
+                sb.append(introspectedColumn.getJavaProperty() + "End");
+                sb.append(" != null "); //$NON-NLS-1$
+                valuesNotNullElementEnd.addAttribute(new Attribute(
+                        "test", sb.toString())); //$NON-NLS-1$
+
+                sb.setLength(0);
+                sb.append(" and ");
+                sb.append(MyBatis3FormattingUtilities
+                        .getAliasedEscapedColumnName(introspectedColumn));
+                sb.append(" &lt; "+introspectedColumn.getJavaProperty() + "End");
+                valuesNotNullElementEnd.addElement(new TextElement(sb.toString()));
+                answer.addElement(valuesNotNullElementEnd);
+            }
+        }
+
         if (context.getPlugins().sqlMapSelectAllElementGenerated(
                 answer, introspectedTable)) {
             parentElement.addElement(answer);
