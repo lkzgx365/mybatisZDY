@@ -7,10 +7,6 @@ import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.codegen.mybatis3.ListUtilities;
 import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
 import org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.AbstractXmlElementGenerator;
-import org.mybatis.generator.config.PropertyRegistry;
-import org.mybatis.generator.internal.util.StringUtility;
-
-import java.util.Iterator;
 
 public class MySelectListByConditionElementGenerator extends AbstractXmlElementGenerator {
 
@@ -95,7 +91,7 @@ public class MySelectListByConditionElementGenerator extends AbstractXmlElementG
                 sb.append(" and ");
                 sb.append(MyBatis3FormattingUtilities
                         .getAliasedEscapedColumnName(introspectedColumn));
-                sb.append(" &gt; "+introspectedColumn.getJavaProperty() + "Start");
+                sb.append(" &gt; #{"+introspectedColumn.getJavaProperty() + "Start,jdbcType=TIMESTAMP}");
                 valuesNotNullElementStart.addElement(new TextElement(sb.toString()));
                 answer.addElement(valuesNotNullElementStart);
 
@@ -110,7 +106,7 @@ public class MySelectListByConditionElementGenerator extends AbstractXmlElementG
                 sb.append(" and ");
                 sb.append(MyBatis3FormattingUtilities
                         .getAliasedEscapedColumnName(introspectedColumn));
-                sb.append(" &lt; "+introspectedColumn.getJavaProperty() + "End");
+                sb.append(" &lt; #{"+introspectedColumn.getJavaProperty() + "End,jdbcType=TIMESTAMP}");
                 valuesNotNullElementEnd.addElement(new TextElement(sb.toString()));
                 answer.addElement(valuesNotNullElementEnd);
             }

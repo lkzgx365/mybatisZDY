@@ -16,6 +16,9 @@ public class MyUpdateByBusinessElementGenerator extends AbstractXmlElementGenera
 
     @Override
     public void addElements(XmlElement parentElement) {
+        if(introspectedTable.getIndexColumns()==null || introspectedTable.getIndexColumns().size() < 1){
+            return ;
+        }
         XmlElement answer = new XmlElement("update");
 
         answer.addAttribute(new Attribute(
