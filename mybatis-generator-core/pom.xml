@@ -68,4 +68,13 @@
         </dependency>
     </dependencies>
 
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <url>
+                http://10.0.4.1:8081/nexus/content/repositories/thirdparty/
+            </url>
+        </repository>
+    </distributionManagement>
+
 </project>
