@@ -122,7 +122,7 @@ public class MySelectListByConditionElementGenerator extends AbstractXmlElementG
         innerForEach.addAttribute(new Attribute("item", "item"));
         innerForEach.addAttribute(new Attribute("index", "index"));
         innerForEach.addAttribute(new Attribute("separator", ","));
-        innerForEach.addElement(new TextElement(" #{item}"));
+        innerForEach.addElement(new TextElement(" ${item}"));
         XmlElement descParams = new XmlElement("if");
         orderParams.addElement(innerForEach);
         sb.setLength(0);
