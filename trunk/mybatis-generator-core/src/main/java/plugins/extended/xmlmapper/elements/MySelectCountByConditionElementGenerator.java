@@ -90,7 +90,7 @@ public class MySelectCountByConditionElementGenerator extends AbstractXmlElement
                 sb.append(" and ");
                 sb.append(MyBatis3FormattingUtilities
                         .getAliasedEscapedColumnName(introspectedColumn));
-                sb.append(" &gt; "+introspectedColumn.getJavaProperty() + "Start");
+                sb.append(" &gt; #{"+introspectedColumn.getJavaProperty() + "Start,jdbcType=TIMESTAMP}");
                 valuesNotNullElementStart.addElement(new TextElement(sb.toString()));
                 answer.addElement(valuesNotNullElementStart);
 
@@ -105,7 +105,7 @@ public class MySelectCountByConditionElementGenerator extends AbstractXmlElement
                 sb.append(" and ");
                 sb.append(MyBatis3FormattingUtilities
                         .getAliasedEscapedColumnName(introspectedColumn));
-                sb.append(" &lt; "+introspectedColumn.getJavaProperty() + "End");
+                sb.append(" &lt; #{"+introspectedColumn.getJavaProperty() + "End,jdbcType=TIMESTAMP}");
                 valuesNotNullElementEnd.addElement(new TextElement(sb.toString()));
                 answer.addElement(valuesNotNullElementEnd);
             }

@@ -15,9 +15,9 @@ public class MySelectByCodeElementGenerator extends AbstractXmlElementGenerator 
 
     @Override
     public void addElements(XmlElement parentElement) {
-        for(IntrospectedColumn c : introspectedTable.getIndexColumns()){
-            System.out.println(c.getActualColumnName());;
-        }
+       if(introspectedTable.getIndexColumns()==null || introspectedTable.getIndexColumns().size() < 1){
+           return ;
+       }
         XmlElement answer = new XmlElement("select"); //$NON-NLS-1$
 
         answer.addAttribute(new Attribute(
