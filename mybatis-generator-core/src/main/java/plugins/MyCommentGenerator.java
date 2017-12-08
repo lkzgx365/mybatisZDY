@@ -7,6 +7,7 @@ import org.mybatis.generator.api.dom.java.*;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.config.MergeConstants;
 import org.mybatis.generator.config.PropertyRegistry;
+import org.mybatis.generator.internal.DefaultCommentGenerator;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,7 +15,7 @@ import java.util.Properties;
 
 import static org.mybatis.generator.internal.util.StringUtility.isTrue;
 
-public class MyCommentGenerator implements CommentGenerator {
+public class MyCommentGenerator extends DefaultCommentGenerator implements CommentGenerator {
 
 	private Properties properties;
 	private Properties systemPro;
@@ -31,6 +32,7 @@ public class MyCommentGenerator implements CommentGenerator {
 		currentDateStr = (new SimpleDateFormat("yyyy-MM-dd")).format(new Date());
 	}
 
+	@Override
 	public void addJavaFileComment(CompilationUnit compilationUnit) {
 		// add no file level comments by default
 		return;
@@ -40,15 +42,18 @@ public class MyCommentGenerator implements CommentGenerator {
 	 * Adds a suitable comment to warn users that the element was generated, and
 	 * when it was generated.
 	 */
+	@Override
 	public void addComment(XmlElement xmlElement) {
 		return;
 	}
 
+	@Override
 	public void addRootComment(XmlElement rootElement) {
 		// add no document level comments by default
 		return;
 	}
 
+	@Override
 	public void addConfigurationProperties(Properties properties) {
 		this.properties.putAll(properties);
 
@@ -66,6 +71,7 @@ public class MyCommentGenerator implements CommentGenerator {
 	 * @param javaElement
 	 *            the java element
 	 */
+	@Override
 	protected void addJavadocTag(JavaElement javaElement, boolean markAsDoNotDelete) {
 		javaElement.addJavaDocLine(" *");
 		StringBuilder sb = new StringBuilder();
@@ -89,6 +95,7 @@ public class MyCommentGenerator implements CommentGenerator {
 	 * 
 	 * @return a string representing the current timestamp, or null
 	 */
+	@Override
 	protected String getDateString() {
 		String result = null;
 		if (!suppressDate) {
@@ -97,6 +104,7 @@ public class MyCommentGenerator implements CommentGenerator {
 		return result;
 	}
 
+	@Override
 	public void addClassComment(InnerClass innerClass, IntrospectedTable introspectedTable) {
 		if (suppressAllComments) {
 			return;
@@ -111,6 +119,7 @@ public class MyCommentGenerator implements CommentGenerator {
 		innerClass.addJavaDocLine(" */");
 	}
 
+	@Override
 	public void addEnumComment(InnerEnum innerEnum, IntrospectedTable introspectedTable) {
 		if (suppressAllComments) {
 			return;
@@ -126,8 +135,9 @@ public class MyCommentGenerator implements CommentGenerator {
 		innerEnum.addJavaDocLine(" */");
 	}
 
+	@Override
 	public void addFieldComment(Field field, IntrospectedTable introspectedTable,
-                                IntrospectedColumn introspectedColumn) {
+								IntrospectedColumn introspectedColumn) {
 		if (suppressAllComments) {
 			return;
 		}
@@ -144,6 +154,7 @@ public class MyCommentGenerator implements CommentGenerator {
 		field.addJavaDocLine(" */");
 	}
 
+	@Override
 	public void addFieldComment(Field field, IntrospectedTable introspectedTable) {
 		if (suppressAllComments) {
 			return;
@@ -160,7 +171,29 @@ public class MyCommentGenerator implements CommentGenerator {
 
 	@Override
 	public void addModelClassComment(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+		if (suppressAllComments) {
+			return;
+		}
 
+		StringBuilder sb = new StringBuilder();
+
+		topLevelClass.addJavaDocLine("/**");
+		sb.append(" * ");
+		sb.append(introspectedTable.getFullyQualifiedTable());
+		if(introspectedTable.getFullyQualifiedTable().getRemark() != null ) {
+			sb.append(": " + introspectedTable.getFullyQualifiedTable().getRemark());
+		}
+		topLevelClass.addJavaDocLine(sb.toString());
+
+		sb.setLength(0);
+		sb.append(" * @author ");
+		sb.append(systemPro.getProperty("user.name"));
+		sb.append(" ");
+		sb.append(currentDateStr);
+
+		// addJavadocTag(innerClass, markAsDoNotDelete);
+
+		topLevelClass.addJavaDocLine(" */");
 	}
 
 	@Override
@@ -168,6 +201,7 @@ public class MyCommentGenerator implements CommentGenerator {
 
 	}
 
+	@Override
 	public void addGeneralMethodComment(Method method, IntrospectedTable introspectedTable) {
 		if (suppressAllComments) {
 			return;
@@ -177,8 +211,9 @@ public class MyCommentGenerator implements CommentGenerator {
 		// method.addJavaDocLine(" */");
 	}
 
+	@Override
 	public void addGetterComment(Method method, IntrospectedTable introspectedTable,
-                                 IntrospectedColumn introspectedColumn) {
+								 IntrospectedColumn introspectedColumn) {
 		if (suppressAllComments) {
 			return;
 		}
@@ -202,8 +237,9 @@ public class MyCommentGenerator implements CommentGenerator {
 		method.addJavaDocLine(" */");
 	}
 
+	@Override
 	public void addSetterComment(Method method, IntrospectedTable introspectedTable,
-                                 IntrospectedColumn introspectedColumn) {
+								 IntrospectedColumn introspectedColumn) {
 		if (suppressAllComments) {
 			return;
 		}
@@ -227,6 +263,7 @@ public class MyCommentGenerator implements CommentGenerator {
 		method.addJavaDocLine(" */");
 	}
 
+	@Override
 	public void addClassComment(InnerClass innerClass, IntrospectedTable introspectedTable, boolean markAsDoNotDelete) {
 		if (suppressAllComments) {
 			return;
@@ -237,6 +274,7 @@ public class MyCommentGenerator implements CommentGenerator {
 		innerClass.addJavaDocLine("/**");
 		sb.append(" * ");
 		sb.append(introspectedTable.getFullyQualifiedTable());
+		sb.append(introspectedTable.getRemarks());
 		innerClass.addJavaDocLine(sb.toString());
 
 		sb.setLength(0);
@@ -249,4 +287,6 @@ public class MyCommentGenerator implements CommentGenerator {
 
 		innerClass.addJavaDocLine(" */");
 	}
+
+
 }
