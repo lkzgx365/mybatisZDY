@@ -262,9 +262,10 @@ public class JavaBeansUtil {
         FullyQualifiedJavaType fqjt = introspectedColumn
                 .getFullyQualifiedJavaType();
         String property = introspectedColumn.getJavaProperty();
-
+        String modelName = context.getJavaModelGeneratorConfiguration().getTargetPackage()+"."+getCamelCaseString(introspectedTable.getTableConfiguration().getTableName(),true);
         Method method = new Method();
         method.setVisibility(JavaVisibility.PUBLIC);
+        method.setReturnType(new FullyQualifiedJavaType(modelName));
         method.setName(getSetterMethodName(property));
         method.addParameter(new Parameter(fqjt, property));
         context.getCommentGenerator().addSetterComment(method,
@@ -279,6 +280,7 @@ public class JavaBeansUtil {
             sb.append(" == null ? null : "); //$NON-NLS-1$
             sb.append(property);
             sb.append(".trim();"); //$NON-NLS-1$
+            sb.append(" \n \t \t return this;");
             method.addBodyLine(sb.toString());
         } else {
             sb.append("this."); //$NON-NLS-1$
@@ -286,6 +288,7 @@ public class JavaBeansUtil {
             sb.append(" = "); //$NON-NLS-1$
             sb.append(property);
             sb.append(';');
+            sb.append("\n \t \t return this;");
             method.addBodyLine(sb.toString());
         }
 
