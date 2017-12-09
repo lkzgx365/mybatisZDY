@@ -43,15 +43,13 @@ public class JavaBeansUtil {
 
     /**
      * JavaBeans rules:
-     *
+     * <p>
      * eMail &gt; geteMail() firstName &gt; getFirstName() URL $gt; getURL() XAxis &gt; getXAxis() a &gt; getA() B &gt;
      * invalid - this method assumes that this is not the case. Call getValidPropertyName first. Yaxis &gt; invalid -
      * this method assumes that this is not the case. Call getValidPropertyName first.
      *
-     * @param property
-     *            the property
-     * @param fullyQualifiedJavaType
-     *            the fully qualified java type
+     * @param property               the property
+     * @param fullyQualifiedJavaType the fully qualified java type
      * @return the getter method name
      */
     public static String getGetterMethodName(String property,
@@ -77,13 +75,12 @@ public class JavaBeansUtil {
 
     /**
      * JavaBeans rules:
-     *
+     * <p>
      * eMail &gt; seteMail() firstName &gt; setFirstName() URL &gt; setURL() XAxis &gt; setXAxis() a &gt; setA() B &gt;
      * invalid - this method assumes that this is not the case. Call getValidPropertyName first. Yaxis &gt; invalid -
      * this method assumes that this is not the case. Call getValidPropertyName first.
      *
-     * @param property
-     *            the property
+     * @param property the property
      * @return the setter method name
      */
     public static String getSetterMethodName(String property) {
@@ -104,10 +101,8 @@ public class JavaBeansUtil {
     /**
      * Gets the camel case string.
      *
-     * @param inputString
-     *            the input string
-     * @param firstCharacterUppercase
-     *            the first character uppercase
+     * @param inputString             the input string
+     * @param firstCharacterUppercase the first character uppercase
      * @return the camel case string
      */
     public static String getCamelCaseString(String inputString,
@@ -152,15 +147,14 @@ public class JavaBeansUtil {
 
     /**
      * This method ensures that the specified input string is a valid Java property name. The rules are as follows:
-     *
+     * <p>
      * 1. If the first character is lower case, then OK 2. If the first two characters are upper case, then OK 3. If the
      * first character is upper case, and the second character is lower case, then the first character should be made
      * lower case
-     *
+     * <p>
      * eMail &gt; eMail firstName &gt; firstName URL &gt; URL XAxis &gt; XAxis a &gt; a B &gt; b Yaxis &gt; yaxis
      *
-     * @param inputString
-     *            the input string
+     * @param inputString the input string
      * @return the valid property name
      */
     public static String getValidPropertyName(String inputString) {
@@ -186,12 +180,9 @@ public class JavaBeansUtil {
     /**
      * Gets the java beans getter.
      *
-     * @param introspectedColumn
-     *            the introspected column
-     * @param context
-     *            the context
-     * @param introspectedTable
-     *            the introspected table
+     * @param introspectedColumn the introspected column
+     * @param context            the context
+     * @param introspectedTable  the introspected table
      * @return the java beans getter
      */
     public static Method getJavaBeansGetter(IntrospectedColumn introspectedColumn,
@@ -220,12 +211,9 @@ public class JavaBeansUtil {
     /**
      * Gets the java beans field.
      *
-     * @param introspectedColumn
-     *            the introspected column
-     * @param context
-     *            the context
-     * @param introspectedTable
-     *            the introspected table
+     * @param introspectedColumn the introspected column
+     * @param context            the context
+     * @param introspectedTable  the introspected table
      * @return the java beans field
      */
     public static Field getJavaBeansField(IntrospectedColumn introspectedColumn,
@@ -248,12 +236,9 @@ public class JavaBeansUtil {
     /**
      * Gets the java beans setter.
      *
-     * @param introspectedColumn
-     *            the introspected column
-     * @param context
-     *            the context
-     * @param introspectedTable
-     *            the introspected table
+     * @param introspectedColumn the introspected column
+     * @param context            the context
+     * @param introspectedTable  the introspected table
      * @return the java beans setter
      */
     public static Method getJavaBeansSetter(IntrospectedColumn introspectedColumn,
@@ -262,7 +247,7 @@ public class JavaBeansUtil {
         FullyQualifiedJavaType fqjt = introspectedColumn
                 .getFullyQualifiedJavaType();
         String property = introspectedColumn.getJavaProperty();
-        String modelName = context.getJavaModelGeneratorConfiguration().getTargetPackage()+"."+getCamelCaseString(introspectedTable.getFullyQualifiedTable().getIntrospectedTableName(),true);
+        String modelName = context.getJavaModelGeneratorConfiguration().getTargetPackage() + "." + getCamelCaseString(introspectedTable.getFullyQualifiedTable().getIntrospectedTableName(), true);
         Method method = new Method();
         method.setVisibility(JavaVisibility.PUBLIC);
         method.setReturnType(new FullyQualifiedJavaType(modelName));
@@ -298,8 +283,7 @@ public class JavaBeansUtil {
     /**
      * Checks if is trim strings enabled.
      *
-     * @param context
-     *            the context
+     * @param context the context
      * @return true, if is trim strings enabled
      */
     private static boolean isTrimStringsEnabled(Context context) {
@@ -313,8 +297,7 @@ public class JavaBeansUtil {
     /**
      * Checks if is trim strings enabled.
      *
-     * @param table
-     *            the table
+     * @param table the table
      * @return true, if is trim strings enabled
      */
     private static boolean isTrimStringsEnabled(IntrospectedTable table) {
@@ -329,8 +312,7 @@ public class JavaBeansUtil {
     /**
      * Checks if is trim strings enabled.
      *
-     * @param column
-     *            the column
+     * @param column the column
      * @return true, if is trim strings enabled
      */
     private static boolean isTrimStringsEnabled(IntrospectedColumn column) {
