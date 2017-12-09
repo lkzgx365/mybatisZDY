@@ -262,7 +262,7 @@ public class JavaBeansUtil {
         FullyQualifiedJavaType fqjt = introspectedColumn
                 .getFullyQualifiedJavaType();
         String property = introspectedColumn.getJavaProperty();
-        String modelName = context.getJavaModelGeneratorConfiguration().getTargetPackage()+"."+getCamelCaseString(introspectedTable.getTableConfiguration().getTableName(),true);
+        String modelName = context.getJavaModelGeneratorConfiguration().getTargetPackage()+"."+getCamelCaseString(introspectedTable.getFullyQualifiedTable().getIntrospectedTableName(),true);
         Method method = new Method();
         method.setVisibility(JavaVisibility.PUBLIC);
         method.setReturnType(new FullyQualifiedJavaType(modelName));
