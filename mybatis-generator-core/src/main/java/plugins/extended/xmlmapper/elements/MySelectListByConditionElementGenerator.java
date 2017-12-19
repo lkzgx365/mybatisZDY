@@ -116,7 +116,7 @@ public class MySelectListByConditionElementGenerator extends AbstractXmlElementG
         XmlElement orderParams = new XmlElement("if");
         sb.append(" orderByParams != null");
         orderParams.addAttribute(new Attribute("test",sb.toString()));
-        answer.addElement(new TextElement(" order by "));
+        orderParams.addElement(new TextElement(" order by "));
         XmlElement innerForEach = new XmlElement("foreach");
         innerForEach.addAttribute(new Attribute("collection", "orderByParams"));
         innerForEach.addAttribute(new Attribute("item", "item"));
