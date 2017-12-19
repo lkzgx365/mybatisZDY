@@ -26,8 +26,8 @@ public class MySelectCountByConditionMethodGenerator extends AbstractJavaMapperM
         listType = new FullyQualifiedJavaType(
                 introspectedTable.getBaseRecordType());
 
-        importedTypes.add(listType);
-        returnType.addTypeArgument(listType);
+        //importedTypes.add(listType);
+        //returnType.addTypeArgument(listType);
         method.setReturnType(returnType);
         method.setName(introspectedTable.getSelectCountByConditionStatementId());
 
