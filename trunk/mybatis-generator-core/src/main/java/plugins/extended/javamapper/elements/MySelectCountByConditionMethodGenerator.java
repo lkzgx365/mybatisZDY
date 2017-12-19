@@ -15,13 +15,13 @@ public class MySelectCountByConditionMethodGenerator extends AbstractJavaMapperM
     @Override
     public void addInterfaceElements(Interface interfaze) {
         Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
-        importedTypes.add(FullyQualifiedJavaType.getNewListInstance());
+        importedTypes.add(FullyQualifiedJavaType.getIntInstance());
 
         Method method = new Method();
         method.setVisibility(JavaVisibility.PUBLIC);
 
         FullyQualifiedJavaType returnType = FullyQualifiedJavaType
-                .getNewListInstance();
+                .getIntInstance();
         FullyQualifiedJavaType listType;
         listType = new FullyQualifiedJavaType(
                 introspectedTable.getBaseRecordType());
