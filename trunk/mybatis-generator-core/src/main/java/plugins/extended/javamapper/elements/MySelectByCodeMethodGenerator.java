@@ -17,6 +17,9 @@ public class MySelectByCodeMethodGenerator extends AbstractJavaMapperMethodGener
     @Override
     public void addInterfaceElements(Interface interfaze) {
         Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
+        if(introspectedTable.getIndexColumns()==null || introspectedTable.getIndexColumns().size() < 1){
+            return ;
+        }
         Method method = new Method();
         method.setVisibility(JavaVisibility.PUBLIC);
 
