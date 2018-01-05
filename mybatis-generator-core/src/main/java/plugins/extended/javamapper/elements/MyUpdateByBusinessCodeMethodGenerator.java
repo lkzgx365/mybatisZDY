@@ -16,7 +16,9 @@ public class MyUpdateByBusinessCodeMethodGenerator extends AbstractJavaMapperMet
     public void addInterfaceElements(Interface interfaze) {
         Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
         FullyQualifiedJavaType parameterType;
-
+        if(introspectedTable.getIndexColumns()==null || introspectedTable.getIndexColumns().size() < 1){
+            return ;
+        }
         if (introspectedTable.getRules().generateRecordWithBLOBsClass()) {
             parameterType = new FullyQualifiedJavaType(introspectedTable
                     .getRecordWithBLOBsType());
