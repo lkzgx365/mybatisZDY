@@ -3,13 +3,17 @@
         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
-    <context id="test" targetRuntime="plugins.extended.MyIntrospectedTable">
+    <!--<context id="test" targetRuntime="plugins.extended.MyIntrospectedTable">-->
+    <context id="MysqlContext" targetRuntime="MyBatis3Simple" defaultModelType="flat">
         <property name="javaFileEncoding" value="UTF-8" />
 
         <!-- 一些工具 -->
         <!-- <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"></plugin> -->
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin"></plugin>
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+        </plugin>
 
         <commentGenerator type="plugins.MyCommentGenerator">
             <!-- 插入一个日期字段 -->
@@ -18,38 +22,47 @@
             <!-- <property name="suppressAllComments" value="true" /> -->
         </commentGenerator>
         <!--数据库链接 参数 -->
-        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+       <!-- <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://114.113.112.197:18060/zima?useSSL=false" userId="javagroup"
                         password="jN2hbH0Saht#GaQKzUQJ*RM3wO=a">
         </jdbcConnection>-->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.128.132:3306/test" userId="test" password="123123" >
+        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://rds1d967813t23b9455uo.mysql.rds.aliyuncs.com:3306/annual_meeting_system_db?useSSL=false" userId="amsdb_user"
+                        password="GZh#(rNm(zCwJ">
+        </jdbcConnection>-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://10.1.241.34:3307/u215_zimadai_xcdf" userId="javagroup"
+                        password="SDFaskjhiu#ab">
         </jdbcConnection>
+        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.128.132:3306/test" userId="test" password="123123" >
+        </jdbcConnection>-->
         <javaTypeResolver>
             <!-- This property is used to specify whether MyBatis Generator should
                 force the use of java.math.BigDecimal for DECIMAL and NUMERIC fields, -->
             <property name="forceBigDecimals" value="false" />
         </javaTypeResolver>
         <!-- 生成模型的包名和位置 -->
-        <javaModelGenerator targetPackage="com.yizhengqiyuan.wld.po"
+        <javaModelGenerator targetPackage="com.pefofs.zimadai.common.model"
                             targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
         <!-- 生成映射文件的包名和位置 -->
-        <sqlMapGenerator targetPackage="mappers.wld"
+        <sqlMapGenerator targetPackage="mybatis.mapper.microloan"
                          targetProject="src/main/resources">
             <property name="enableSubPackages" value="true" />
         </sqlMapGenerator>
         <!-- 生成DAO的包名和位置 -->
         <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="com.yizhengqiyuan.wld.dao" targetProject="src/main/java">
+                             targetPackage="com.pefofs.zimadai.microloan.mapper" targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
         <!-- 要生成哪些表 -->
-        <table tableName="loan_wld_deal"
+        <table tableName="wld_user_commission"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"></table>
+
     </context>
 </generatorConfiguration>
