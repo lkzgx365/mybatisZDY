@@ -47,6 +47,7 @@ public class SimpleXMLMapperGenerator extends AbstractXmlGenerator {
         context.getCommentGenerator().addRootComment(answer);
 
         addResultMapElement(answer);
+        addBaseColumnListElement(answer);
         addDeleteByPrimaryKeyElement(answer);
         addInsertElement(answer);
         addUpdateByPrimaryKeyElement(answer);
@@ -60,6 +61,13 @@ public class SimpleXMLMapperGenerator extends AbstractXmlGenerator {
         if (introspectedTable.getRules().generateBaseResultMap()) {
             AbstractXmlElementGenerator elementGenerator = new ResultMapWithoutBLOBsElementGenerator(
                     true);
+            initializeAndExecuteGenerator(elementGenerator, parentElement);
+        }
+    }
+
+    protected void addBaseColumnListElement(XmlElement parentElement) {
+        if (introspectedTable.getRules().generateBaseColumnList()) {
+            AbstractXmlElementGenerator elementGenerator = new BaseColumnListElementGenerator();
             initializeAndExecuteGenerator(elementGenerator, parentElement);
         }
     }

@@ -31,7 +31,7 @@
                         password="GZh#(rNm(zCwJ">
         </jdbcConnection>-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://10.1.241.34:3307/u215_zimadai_xcdf" userId="javagroup"
+                        connectionURL="jdbc:mysql://10.1.241.36:3307/u215_zimadai_xcdf" userId="javagroup"
                         password="SDFaskjhiu#ab">
         </jdbcConnection>
         <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.128.132:3306/test" userId="test" password="123123" >
@@ -59,7 +59,7 @@
         </javaClientGenerator>
 
         <!-- 要生成哪些表 -->
-        <table tableName="wld_user_commission"
+        <table tableName="wld_existing_third_data"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"></table>
