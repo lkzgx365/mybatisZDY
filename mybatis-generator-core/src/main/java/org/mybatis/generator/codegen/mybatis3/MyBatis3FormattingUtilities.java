@@ -121,8 +121,10 @@ public class MyBatis3FormattingUtilities {
     public static String getEscapedColumnName(
             IntrospectedColumn introspectedColumn) {
         StringBuilder sb = new StringBuilder();
+        sb.append("`");
         sb.append(escapeStringForMyBatis3(introspectedColumn
                 .getActualColumnName()));
+        sb.append("`");
 
         if (introspectedColumn.isColumnNameDelimited()) {
             sb.insert(0, introspectedColumn.getContext()
